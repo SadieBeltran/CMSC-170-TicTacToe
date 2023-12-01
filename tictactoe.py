@@ -4,16 +4,16 @@ def startGame():
     PLAYERS = ['X', 'O']
     i = 0
     j = 0
-    while not checkIfWin(tiles, j):
+    while not checkIfWin(tiles, j) and not checkIfDraw(tiles):
         for pl in PLAYERS:
-            if i == 8:
-                break
+            print("i: "+ str(i))
+            if i == 9:
+                return "Draw"
             printTiles(tiles)
             tiles, j = updateTile(tiles, pl)
             if checkIfWin(tiles, j):
                 return "Player "+pl+" wins"
             i += 1
-    return "Draw"
 
 def printTiles(tiles):
     for i in range(1, len(tiles)+1):
@@ -34,6 +34,13 @@ def updateTile(tiles, player):
             return tiles, index
         else:
             print("THAT TILE HAS ALREADY BEEN FILLED!")
+
+def checkIfDraw(tiles):
+    sum = 0
+    for e in tiles:
+        if e == -1:
+            sum += e
+    return True if sum == 0 else False
 
 def checkIfWin(tiles, i):
     #check if there are enough filled tiles to form a win in the array
